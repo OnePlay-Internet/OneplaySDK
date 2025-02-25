@@ -1,1 +1,1 @@
-# Oneplay
+Oneplay's Android SDK enables seamless integration of powerful game streaming into any platform. 🎮 Effortlessly bring high-quality streaming to your app, providing users with top-notch gaming without specialized hardware. 📱💻 Compatible across devices, it saves progress in the cloud for continuous gameplay. ☁️ Elevate your platform today! 🚀
