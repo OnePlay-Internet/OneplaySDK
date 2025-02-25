@@ -230,3 +230,42 @@ Before deploying to production, test the implementation with these scenarios:
 - Error scenarios and recovery mechanisms
 
 ## 9. ProGaurd rules
+```markdown
+# Don't obfuscate code
+-dontobfuscate
+
+# Our code
+-keep class in.oneplay.binding.input.evdev.* {*;}
+
+# Moonlight common
+-keep class in.oneplay.nvstream.jni.* {*;}
+
+# Okio
+-keep class sun.misc.Unsafe {*;}
+-dontwarn java.nio.file.*
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn okio.**
+
+# BouncyCastle
+-keep class org.bouncycastle.** {*;}
+-dontwarn javax.naming.**
+
+# jMDNS
+-dontwarn javax.jmdns.impl.DNSCache
+-dontwarn org.slf4j.**
+
+-keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
+
+-keepclassmembers class * extends in.oneplay.ui.keyboard.layouts.KeyboardLayout {
+    public protected <init>(...);
+}
+
+-keep class in.oneplay.sdk.** { *; }
+-dontwarn java.lang.invoke.StringConcatFactory
+
+#-keep class com.newrelic.** { *; }#
+#-keep class io.invertase.** { *; }
+#-keep class com.newrelic.agent.android.api.v2.** { *; }
+
+```
