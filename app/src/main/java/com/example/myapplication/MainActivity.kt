@@ -1,22 +1,15 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.api.ApiClient
-import com.example.myapplication.api.PostData
+import com.example.oneplay.R
 import `in`.oneplay.sdk.InputData
-import `in`.oneplay.sdk.OneplayGameFactory
 import `in`.oneplay.sdk.OneplayGameFactory.createOnePlaySession
 import `in`.oneplay.sdk.OneplayGameSessionListener
-import okhttp3.ResponseBody
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 //AAR file Demo created by Jaaveeth
