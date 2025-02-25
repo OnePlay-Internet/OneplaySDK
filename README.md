@@ -25,7 +25,7 @@ dependencies {
 settings.gradle
 repositories {
         maven {
-            url = uri("https://maven.pkg.github.com/JaaveethOneplay/Oneplay")
+            url = uri("https://maven.pkg.github.com/OneplaySDK/Oneplay")
             credentials {
                 username = "GITHUB_USERNAME"
                 password = "GITHUB_TOKEN"  // PAT with `read:packages` scope
