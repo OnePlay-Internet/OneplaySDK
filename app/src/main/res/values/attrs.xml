@@ -1,0 +1,6 @@
+<resources>
+    <attr name="postSplashScreenTheme" format="reference" />
+    <attr name="windowSplashScreenBackground" format="reference" />
+    <attr name="windowSplashScreenAnimatedIcon" format="reference" />
+    <attr name="windowSplashScreenAnimationDuration" format="integer" />
+</resources>
