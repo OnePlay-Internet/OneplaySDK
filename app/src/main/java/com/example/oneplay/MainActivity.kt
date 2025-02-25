@@ -1,11 +1,10 @@
-package com.example.myapplication
+package com.example.oneplay
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.oneplay.R
 import `in`.oneplay.sdk.InputData
 import `in`.oneplay.sdk.OneplayGameFactory.createOnePlaySession
 import `in`.oneplay.sdk.OneplayGameSessionListener
