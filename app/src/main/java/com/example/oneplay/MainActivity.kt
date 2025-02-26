@@ -6,6 +6,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import `in`.oneplay.sdk.InputData
+import `in`.oneplay.sdk.OnePlayResponseData
 import `in`.oneplay.sdk.OneplayGameFactory.createOnePlaySession
 import `in`.oneplay.sdk.OneplayGameSessionListener
 import org.json.JSONObject
@@ -84,7 +85,8 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
             partner,
             gameId,
             jsonObj.toString(),
-            "1.0.0"
+            "1.0.0",
+            packageName
         )
         /* Either the partner details or OnePlay details required */
         // Partner having their own Authentication
@@ -98,8 +100,11 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
         myButton.text = "Login Done"
     }
 
-    override fun sendEvent(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+
+    override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
+        runOnUiThread {
+            Toast.makeText(this, onePlayResponseData.message, Toast.LENGTH_LONG).show()
+        }
     }
 
 
