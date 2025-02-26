@@ -166,25 +166,6 @@ Add required permissions to your AndroidManifest.xml:
 ```
 
 ## 5. Error Handling
-
-```kotlin
-/* data class OnePlayResponseData (
-    val code: Int, val message: String, val isProgressed: Boolean, val percentage: Int
-) */ Reference OnePlayResponseData
-
-override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
-    when {
-        onePlayResponseData.code == 404 -> handleError(onePlayResponse.message)
-        onePlayResponseData.code == 1000 -> handleGameConnected()
-        onePlayResponseData.code == 1002 -> handleGameDisconnected()
-    }
-}
-
-private fun handleError(error: String) {
-    Toast.makeText(this, "Game Error: $error", Toast.LENGTH_SHORT).show()
-}
-```
-
 ```kotlin
 /* data class OnePlayResponseData (
     val code: Int, val message: String, val isProgressed: Boolean, val percentage: Int
