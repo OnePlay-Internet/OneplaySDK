@@ -197,6 +197,7 @@ override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
         handleProgress(oneplayResponseData.percentage)
         onePlayResponseData.code == 1001 -> handleGameConnected()
         onePlayResponseData.code == 1002 -> handleGameDisconnected()
+        onePlayResponseData.code == 801 -> handleQueue(oneplayResponseData.percentage, oneplayResponseData.message) // percentage value is the queue count
     }
 }
 
