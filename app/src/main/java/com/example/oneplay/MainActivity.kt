@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import `in`.oneplay.sdk.InputData
 import `in`.oneplay.sdk.OnePlayResponseData
-import `in`.oneplay.sdk.OneplayGameFactory.createOnePlaySession
+import `in`.oneplay.sdk.OneplayGameFactory
 import `in`.oneplay.sdk.OneplayGameSessionListener
 import org.json.JSONObject
 
@@ -28,6 +28,7 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        OneplayGameFactory.initialize(applicationContext)
 
         myButton = findViewById(R.id.button_start)
         onePlayUserId = findViewById(R.id.userId)
@@ -39,11 +40,11 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
      "session_id": "850a8a69-aa9a-4e96-850e-3dcf169fe5a6",
      "session": "Nzg0NmYyYTQtYTUwZC00YTIwLWIxN2ItNjgwMWExZDhjMGI0Ojg1MGE4YTY5LWFhOWEtNGU5Ni04NTBlLTNkY2YxNjlmZTVhNg=="
    }*/
-        /*start_game_api(
+        start_game_api(
             "7690ebae422f4d3f1ef15dace7733240f389e8d863d4328a7f262edff67c3296",
-            "7846f2a4-a50d-4a20-b17b-6801a1d8c0b4",
-            "Nzg0NmYyYTQtYTUwZC00YTIwLWIxN2ItNjgwMWExZDhjMGI0OmIwZGZhYTJkLTJlOTQtNDZhZi1iNTczLTljMjJmNWRhZjI2Yg=="
-        )*/
+            "e5bb84d1-77ad-4236-adf1-78e8ad12b7c1",
+            "ZTViYjg0ZDEtNzdhZC00MjM2LWFkZjEtNzhlOGFkMTJiN2MxOmNkODNiNmNhLTU5YTYtNGNjOS1hMWZjLTJhY2ZmYmNiN2VkMw==", " "
+        )
 
         myButton.setOnClickListener {
             val gameId = onePlayGameId.text.toString()
@@ -80,7 +81,8 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
         jsonObj.put("video_decoder_selection", "auto")
         jsonObj.put("store", "epic")
 
-        val session = createOnePlaySession(this, this)
+        if (OneplayGameFactory.getSdkContext() != null) {
+        val session = OneplayGameFactory.createOnePlaySession(applicationContext, this)
         val inputData = InputData(
             partner,
             gameId,
@@ -98,6 +100,7 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
 
         session.setInputData(inputData)
         myButton.text = "Login Done"
+            }
     }
 
 
