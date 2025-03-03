@@ -103,8 +103,11 @@ class GameActivity : AppCompatActivity(), OneplayGameSessionListener {
         setContentView(R.layout.activity_game)
         
         // Initialize the game session
-        gameSession = OneplayGameFactory.createOnePlaySession(this)
-        setupGameLaunch()
+        OneplayGameFactory.initialize(applicationContext)
+        gameSession = OneplayGameFactory.createOnePlaySession(applicationContext)
+        if (OneplayGameFactory.getSdkContext() != null) {
+            setupGameLaunch()
+        }
     }
 
     override fun sendEvent(onePlayResponseData: OnePlayResponseDatag) {
