@@ -18,7 +18,7 @@ Add the following to your app-level build.gradle file & settings:
 dependencies {
             // Use the dependency as per your need either Gaming or Desk
 			implementation "in.oneplay.sdk:gaming:1.0.0" // Game
-			implementation "in.oneplay.sdk:desk:1.0.0" // Desk
+			implementation "in.oneplay.sdk:vdi:1.0.0" // Desk
     }
 ```
 
