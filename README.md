@@ -158,6 +158,43 @@ private fun setupGameLaunch() {
 }
 ```
 
+Here is the different streamSettings:
+
+```json
+"data":[{"enabled":true,"key":"resolution","show_in":"main","text":"Resolution","type":"dslider","values":[{"default":true,"display":"1280x720","value":"1280x720"},{"default":false,"display":"1366x768","value":"1366x768"},{"default":false,"display":"1440x900","value":"1440x900"},{"default":false,"display":"1920x1080","value":"1920x1080"},{"default":false,"display":"1920x1200","value":"1920x1200"},{"default":false,"display":"2560x1440","value":"2560x1440"},{"default":false,"display":"2560x1600","value":"2560x1600"},{"default":false,"display":"3840x2160","value":"3840x2160"}]},
+
+{"enabled":true,"key":"fps","show_in":"main","text":"FPS","type":"dslider","values":[{"default":false,"display":"30 FPS","value":30},{"default":true,"display":"60 FPS","value":60},{"default":false,"display":"120 FPS","value":120},{"default":false,"display":"240 FPS *(beta)","value":240}]},
+
+{"default":10000,"enabled":true,"key":"bitrate","max":50000,"min":5000,"show_in":"main","text":"Bitrate","type":"slider"},
+
+{"default":true,"enabled":true,"key":"is_vsync_enabled","show_in":"main","text":"VSYNC","type":"toggle"},
+
+{"default":true,"enabled":true,"key":"frame_pacing","show_in":"main","text":"Frame Pacing","type":"toggle"},
+
+{"default":false,"enabled":true,"key":"show_stats","show_in":"advance","text":"Show Stats","type":"toggle"},
+
+{"default":true,"enabled":true,"key":"fullscreen","show_in":"advance","text":"Full Screen","type":"toggle"},
+
+{"default":false,"enabled":true,"key":"onscreen_controls","show_in":"advance","text":"On-screen Controls","type":"toggle"},
+
+{"enabled":true,"key":"audio_type","show_in":"advance","text":"Audio Type","type":"select","values":[{"default":true,"display":"Stereo","value":"stereo"},{"default":false,"display":"5.1","value":"5.1-surround"}]},
+
+{"enabled":true,"key":"stream_codec","show_in":"advance","text":"Stream Codec","type":"select","values":[{"default":false,"display":"Auto","value":"auto"},{"default":false,"display":"HEVC","value":"forceh265"},{"default":true,"display":"H.264","value":"neverh265"},{"default":false,"display":"AV1","value":"av1"}]},
+
+{"enabled":true,"key":"video_decoder_selection","show_in":"advance","text":"Video Decoder","type":"select","values":[{"default":true,"display":"Auto","value":"auto"},{"default":false,"display":"Software","value":"software"},{"default":false,"display":"Hardware","value":"hardware"}]},
+
+{"enabled":true,"key":"server_type","show_in":"advance","text":"Server Selection","type":"drop-down","values":[{"default":true,"display":"Best","value":"best"},{"default":false,"display":"Any Available","value":"any"}]},
+
+{"enabled":true,"key":"server_region","show_in":"advance","text":"Server Region","type":"drop-down","values":[{"default":true,"display":"Auto","value":"auto"},{"default":false,"display":"Mumbai-North","value":"ind_mumbai_y1"},{"default":false,"display":"Mumbai-South","value":"ind_mumbai_l1"},{"default":false,"display":"Noida","value":"ind_noida_w1"}]},{"default":false,"enabled":true,"key":"optimize_for_rdp","show_in":"advance","text":"Use Local Cursor","type":"toggle"},{"default":true,"enabled":true,"key":"pip_mode_android","show_in":"advance","text":"PIP Mode","type":"toggle"},{"default":false,"enabled":true,"key":"virtual_display","show_in":"advance","text":"Advance Display Mode","type":"toggle"},{"default":20,"enabled":true,"key":"fec_num","max":250,"min":0,"show_in":"advance","text":"FEC","type":"slider"},{"default":28,"enabled":true,"key":"qp_num","max":100,"min":0,"show_in":"advance","text":"QP","type":"slider"},
+
+{"enabled":true,"key":"zoom_level","show_in":"advance","text":"Zoom Level","type":"select","values":[{"default":true,"display":"100%","value":100},{"default":false,"display":"125%","value":125},{"default":false,"display":"150%","value":150}]},
+
+{"enabled":true,"key":"nvidia_preset","show_in":"advance","text":"Preset","type":"select","values":[{"default":true,"display":"P1 (Fastest)","value":"p1"},{"default":false,"display":"P2","value":"p2"},{"default":false,"display":"P3","value":"p3"},{"default":false,"display":"P4","value":"p4"},{"default":false,"display":"P5","value":"p5"},{"default":false,"display":"P6","value":"p6"},{"default":false,"display":"P7 (Slowest)","value":"p7"}]},
+
+{"enabled":true,"key":"nvidia_twopass_mode","show_in":"advance","text":"Mode","type":"select","values":[{"default":true,"display":"Quarter Resolution (Faster)","value":"quarter_resolution"},{"default":false,"display":"Disabled (Fastest)","value":"disabled"},{"default":false,"display":"Full Resolution (Fastest)","value":"full_resolution"}]},{"default":true,"enabled":true,"key":"nvidia_use_cabac","show_in":"advance","text":"Use CABAC","type":"toggle"}]
+
+```
+
 ## 4. Manifest Configuration
 
 Add required permissions to your AndroidManifest.xml:
