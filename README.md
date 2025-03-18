@@ -147,7 +147,6 @@ private fun setupGameLaunch() {
     ).apply {
         // Set either partner authentication
         partnerUserAuthToken = "USER_AUTH_TOKEN"
-        partnerUserIdPhoneNumber = "USER_PHONE"
         oPlayId = "ONEPLAY_GAME_ID" // Only for partner authentication
         
         // Or OnePlay authentication
