@@ -79,7 +79,7 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
         jsonObj.put("audio_type", "stereo")
         jsonObj.put("stream_codec", "forceh265")
         jsonObj.put("video_decoder_selection", "auto")
-        jsonObj.put("store", "epic")
+        jsonObj.put("store", "steam")
 
         if (OneplayGameFactory.getSdkContext() != null) {
         val session = OneplayGameFactory.createOnePlaySession(applicationContext, this)
