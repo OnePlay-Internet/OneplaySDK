@@ -115,9 +115,52 @@ class GameActivity : AppCompatActivity(), OneplayGameSessionListener {
         }
     }
 
-    override fun sendEvent(onePlayResponseData: OnePlayResponseDatag) {
-        // Handle events from the game session
-        Log.d("GameActivity", "Event received: $msg")
+     override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
+        when {
+            onePlayResponseData.code == 404 -> handleError(onePlayResponseData.message) //Connection error
+            onePlayResponseData.code == 1000 && onePlayResponseData.isProgressed == true ->
+                handleProgress(onePlayResponseData.percentage)
+            onePlayResponseData.code == 1001 -> handleGameConnected()
+            onePlayResponseData.code == 1002 -> handleGameDisconnected()
+            onePlayResponseData.code == 1003 -> handleGameTerminated()
+            onePlayResponseData.code == 801 -> handleQueue(onePlayResponseData.percentage, onePlayResponseData.message) // percentage value is the queue count
+        }
+    }
+
+    private fun handleGameTerminated() {
+        runOnUiThread {
+            Toast.makeText(this, "Game Terminated", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleProgress(percentage: Int) {
+        runOnUiThread {
+            Toast.makeText(this, "Loading.. $percentage", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleQueue(percentage: Any, message: Any) {
+        runOnUiThread {
+            Toast.makeText(this, "Queue ahead $percentage user", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleGameDisconnected() {
+        runOnUiThread {
+            Toast.makeText(this, "Game Disconnected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleGameConnected() {
+        runOnUiThread {
+            Toast.makeText(this, "Game Connected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun handleError(error: String) {
+        runOnUiThread {
+            Toast.makeText(this, "Game Error: $error", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 ```
@@ -160,6 +203,11 @@ private fun setupGameLaunch() {
 
     gameSession.setInputData(inputData)
 }
+```
+Here is the termination method:
+
+```
+gameSession.terminateOnePlaySession()
 ```
 
 Here is the different streamSettings:
