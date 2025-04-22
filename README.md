@@ -312,6 +312,11 @@ Before deploying to production, test the implementation with these scenarios:
 # Our code
 -keep class in.oneplay.binding.input.evdev.* {*;}
 
+# Gson
+-keep class in.oneplay.backend.PartnerDetails
+-keep class in.oneplay.backend.PartnerUrls
+
+
 # Moonlight common
 -keep class in.oneplay.nvstream.jni.* {*;}
 
@@ -322,7 +327,13 @@ Before deploying to production, test the implementation with these scenarios:
 -dontwarn okio.**
 
 # BouncyCastle
--keep class org.bouncycastle.** {*;}
+-keep class org.bouncycastle.jcajce.provider.asymmetric.* {*;}
+-keep class org.bouncycastle.jcajce.provider.asymmetric.util.* {*;}
+-keep class org.bouncycastle.jcajce.provider.asymmetric.rsa.* {*;}
+-keep class org.bouncycastle.jcajce.provider.digest.** {*;}
+-keep class org.bouncycastle.jcajce.provider.symmetric.** {*;}
+-keep class org.bouncycastle.jcajce.spec.* {*;}
+-keep class org.bouncycastle.jce.** {*;}
 -dontwarn javax.naming.**
 
 # jMDNS
@@ -335,12 +346,5 @@ Before deploying to production, test the implementation with these scenarios:
 -keepclassmembers class * extends in.oneplay.ui.keyboard.layouts.KeyboardLayout {
     public protected <init>(...);
 }
-
--keep class in.oneplay.sdk.** { *; }
--dontwarn java.lang.invoke.StringConcatFactory
-
-#-keep class com.newrelic.** { *; }#
-#-keep class io.invertase.** { *; }
-#-keep class com.newrelic.agent.android.api.v2.** { *; }
 
 ```
