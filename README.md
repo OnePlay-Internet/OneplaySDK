@@ -193,6 +193,7 @@ private fun setupGameLaunch() {
         packageName = "your_pakageName"
     ).apply {
         // Set either partner authentication
+        forceStart = "true" // "false"
         partnerUserAuthToken = "USER_AUTH_TOKEN"
         oPlayId = "ONEPLAY_GAME_ID" // Only for partner authentication
         
