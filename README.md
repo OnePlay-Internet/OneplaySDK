@@ -314,6 +314,8 @@ Before deploying to production, test the implementation with these scenarios:
 
 # Moonlight common
 -keep class in.oneplay.nvstream.jni.* {*;}
+-keep class * { @androidx.annotation.FontRes *; }
+
 
 # Okio
 -keep class sun.misc.Unsafe {*;}
@@ -333,11 +335,17 @@ Before deploying to production, test the implementation with these scenarios:
 -keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
 
 -keepclassmembers class * extends in.oneplay.ui.keyboard.layouts.KeyboardLayout {
-    public protected <init>(...);
+public protected <init>(...);
 }
 
 -keep class in.oneplay.sdk.** { *; }
 -dontwarn java.lang.invoke.StringConcatFactory
+
+# Gson
+-keep class in.oneplay.sdk.SessionRequest
+-keep class in.oneplay.sdk.ResponseActiveSession
+-keep class in.oneplay.sdk.Data
+-keep class in.oneplay.sdk.Queue
 
 #-keep class com.newrelic.** { *; }#
 #-keep class io.invertase.** { *; }

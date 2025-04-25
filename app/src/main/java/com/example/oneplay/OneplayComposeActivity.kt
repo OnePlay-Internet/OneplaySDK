@@ -23,15 +23,15 @@ class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
         setContent {
             OneplayTheme {
                 OneplayScreen(
-                    onStartGameClick = { gameId, userId, token, partnerId, onResult ->
+                    onStartGameClick = { gameId, userId, token, partnerId, oplayId,onResult ->
                         if(gameId.isNotEmpty()) {
-                            start_game_api(gameId, userId, token, partnerId, onResult)
+                            start_game_api(gameId, userId, token, partnerId, oplayId,onResult)
                         } else {
-                            start_game_api("accessonespacecloudworkstationplatformbyoneplayforusersofoneplay", userId, token, partnerId, onResult)
+                            start_game_api("accessonespacecloudworkstationplatformbyoneplayforusersofoneplay", userId, token, partnerId, oplayId,onResult)
                         }
                     },
                     onTerminateGameClick = {
-                        session?.terminateOnePlaySession()
+                        //session?.terminateOnePlaySession()
                     }
                 )
             }
@@ -43,6 +43,7 @@ class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
         userId: String,
         sessionToken: String,
         partner: String,
+        oplayId: String,
         listener: (Boolean, String) -> Unit
     ) {
         val jsonObj = JSONObject().apply {
@@ -80,8 +81,9 @@ class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
                 } else {
                     // Own Authentication
                     partnerUserAuthToken = sessionToken
-                    oPlayId = "7690ebae422f4d3f1ef15dace7733240f389e8d863d4328a7f262edff67c3296"
+                    //oPlayId = oplayId
                 }
+                forceStart = true
 
             }
 

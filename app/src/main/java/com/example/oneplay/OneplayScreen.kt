@@ -33,6 +33,7 @@ fun OneplayScreen(
     userId: String,
     token: String,
     partnerId: String,
+    oplayId: String,
     listener: (Boolean, String) -> Unit
 ) -> Unit,
     onTerminateGameClick : () -> Unit
@@ -43,6 +44,7 @@ fun OneplayScreen(
     var token by remember { mutableStateOf(TextFieldValue("")) }
     var partnerId by remember { mutableStateOf(TextFieldValue("")) }
     var gameId by remember { mutableStateOf(TextFieldValue("")) }
+    var oplayId by remember { mutableStateOf(TextFieldValue("")) }
     var oneplayAuth by remember { mutableStateOf(false) }
     var ownAuth by remember { mutableStateOf(false) }
     var gamingSdk by remember { mutableStateOf(false) }
@@ -203,6 +205,7 @@ fun OneplayScreen(
             CustomTextField(value = token, onValueChange = { token = it }, hint = "Oneplay Partner Token")
             CustomTextField(value = partnerId, onValueChange = { partnerId = it }, hint = "Oneplay Partner ID")
             CustomTextField(value = gameId, onValueChange = { gameId = it }, hint = "Oneplay Game ID", gamingSdk)
+            CustomTextField(value = oplayId, onValueChange = { oplayId = it }, hint = "OPlay ID", ownAuth)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -234,7 +237,8 @@ fun OneplayScreen(
                                         gameId.text,
                                         userId.text,
                                         token.text,
-                                        partnerId.text
+                                        partnerId.text,
+                                        oplayId.text,
                                     ) { success, message ->
                                         isSuccess.value = success
                                         resultMessage.value = message
@@ -311,5 +315,5 @@ fun CustomTextField(
 @Preview(showBackground = true)
 @Composable
 fun PreviewOneplayScreen() {
-    OneplayScreen(onStartGameClick = { _, _, _, _, _ -> }, onTerminateGameClick = {})
+    OneplayScreen(onStartGameClick = { _, _, _, _, _, _ -> }, onTerminateGameClick = {})
 }
