@@ -364,3 +364,16 @@ public protected <init>(...);
 #-keep class com.newrelic.agent.android.api.v2.** { *; }
 
 ```
+## 10.Network Security
+Trusts the system's built-in Certificate Authorities (CAs).
+Ensures your app will trust normal HTTPS connections, using certificates trusted by Android OS.
+```markdown
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>
+```
