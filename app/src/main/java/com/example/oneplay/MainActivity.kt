@@ -1,6 +1,8 @@
 package com.example.oneplay
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,7 +30,7 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        OneplayGameFactory.initialize(applicationContext)
+        OneplayGameFactory.INSTANCE.initialize(applicationContext)
 
         myButton = findViewById(R.id.button_start)
         onePlayUserId = findViewById(R.id.userId)
@@ -63,16 +65,21 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
 
     }
 
+    override fun onGenericMotionEvent(event: MotionEvent?): Boolean {
+        Log.d("EVENT LOG -------->", event.toString())
+        return super.onGenericMotionEvent(event)
+    }
+
 
 
     //Start game api function call
     fun start_game_api(gameId: String, userId: String, sessionToken: String, partner: String) {
 
         val jsonObj = JSONObject()
-        jsonObj.put("resolution", "1280x720")
+        jsonObj.put("resolution", "1920x1080")
         jsonObj.put("is_vsync_enabled", true)
         jsonObj.put("fps", "60")
-        jsonObj.put("bitrate", 10000)
+        jsonObj.put("bitrate", 20000)
         jsonObj.put("show_stats", false)
         jsonObj.put("fullscreen", true)
         jsonObj.put("onscreen_controls", true)
@@ -81,8 +88,8 @@ class MainActivity :  AppCompatActivity(), OneplayGameSessionListener {
         jsonObj.put("video_decoder_selection", "auto")
         jsonObj.put("store", "steam")
 
-        if (OneplayGameFactory.getSdkContext() != null) {
-        val session = OneplayGameFactory.createOnePlaySession(applicationContext, this)
+        if (OneplayGameFactory.INSTANCE.sdkContext != null) {
+        val session = OneplayGameFactory.INSTANCE.createOnePlaySession(applicationContext, this)
         val inputData = InputData(
             partner,
             gameId,
