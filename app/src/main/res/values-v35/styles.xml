@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Apptheame" parent="@android:style/Theme.Black.NoTitleBar">
+        <!-- Show a splash screen on the activity. Automatically removed when
+             Flutter draws its first frame -->
+        <item name="colorAccent">#6E59FE</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+    <style name="Theme.SplashScreen" parent="android:Theme">
+        <!-- Add your style attributes here -->
+        <item name="colorAccent">#6E59FE</item>
+    </style>
+    <!--<style name="AppTheme.SplashScreenTheme" parent="attr/postSplashScreenTheme">
+        &lt;!&ndash;<item name="android:windowSplashScreenBackground">@attr/windowSplashScreenBackground</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@attr/windowSplashScreenAnimatedIcon</item>
+        <item name="android:windowSplashScreenAnimationDuration">@attr/windowSplashScreenAnimationDuration</item>&ndash;&gt;
+        &lt;!&ndash; Customize your splash screen theme here. &ndash;&gt;
+    </style>-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Other style attributes -->
+        <item name="colorAccent">#6E59FE</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+
+</resources>

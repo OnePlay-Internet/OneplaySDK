@@ -1,62 +1,54 @@
 package com.example.oneplay
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.oneplay.ui.theme.OneplayTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import `in`.oneplay.sdk.GameLaunchSession
 import `in`.oneplay.sdk.InputData
 import `in`.oneplay.sdk.OnePlayResponseData
 import `in`.oneplay.sdk.OneplayGameFactory
 import `in`.oneplay.sdk.OneplayGameSessionListener
 import org.json.JSONObject
-import java.util.Locale
 
-class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
+class GameList : AppCompatActivity(), OneplayGameSessionListener {
     private var session: GameLaunchSession? = null
-    var sdkContext: Context? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         OneplayGameFactory.INSTANCE.initialize(applicationContext)
-        sdkContext = OneplayGameFactory.INSTANCE.sdkContext
-        if (sdkContext != null) {
-            session = OneplayGameFactory.INSTANCE.createOnePlaySession(applicationContext, this)
-
-        }
         enableEdgeToEdge()
         setContent {
-            OneplayTheme {
-                OneplayScreen(
-                    onStartGameClick = { gameId, userId, token, partnerId, oplayId, selectedStore,onResult ->
-                        if(gameId.isNotEmpty()) {
-                            start_game_api(gameId, userId, token, partnerId, oplayId,selectedStore )
-                        } else {
-                            start_game_api(
-                                "accessonespacecloudworkstationplatformbyoneplayforusersofoneplay",
-                                userId,
-                                token,
-                                partnerId,
-                                oplayId,
-                                selectedStore
-                            )
-                        }
-                    },
-                    onTerminateGameClick = {
-                        session?.terminateOnePlaySession()
+            MaterialTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color.White
+                ) {
+                    OneplayGameList { gameId, listener ->
+                        // Simulate a game start
+                        val userId = intent.getStringExtra("userId") ?: "default"
+                        val token = intent.getStringExtra("token") ?: "default"
+                        val partnerId = intent.getStringExtra("partner") ?: "default"
+                        val oplayId = intent.getStringExtra("oplayId") ?: "default"
+
+                        Toast.makeText(this, "Starting $gameId", Toast.LENGTH_SHORT).show()
+                        // Simulate success callback
+                        start_game_api(gameId, userId, token, partnerId, oplayId)
+                        listener(true, "$gameId launched successfully")
                     }
-                )
+                }
             }
         }
-
-        //start_game_api("3532","","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3Nlc3Npb24iOiJzcDQ4NDVpaG45eTRydGF2Y2tpeXNma3V1ZHN0OGwwZSIsInNmIjoiMTgifQ.TKKiZLuBpEGZpnekOGAIRrvxa8JIcuEeaB4Egmn1O0Q","66aea1a3-7aa1-498f-9baf-debc87a1cd5c","7690ebae422f4d3f1ef15dace7733240f389e8d863d4328a7f262edff67c3296")
     }
+
 
     fun start_game_api(
         gameId: String,
@@ -64,29 +56,27 @@ class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
         sessionToken: String,
         partner: String,
         oplayId: String,
-        selectedStore: String
     ) {
         val jsonObj = JSONObject().apply {
             put("resolution", "1280x720")
             put("is_vsync_enabled", true)
-            put("fps", "30 ")
-            put("bitrate", 5000)
-            put("show_stats", true)
+            put("fps", "60")
+            put("bitrate", 10000)
+            put("show_stats", false)
             put("fullscreen", true)
-            put("onscreen_controls", false)
+            put("onscreen_controls", true)
             put("audio_type", "stereo")
-            put("stream_codec", "neverh265")
+            put("stream_codec", "forceh265")
             put("video_decoder_selection", "auto")
             put("store",
-                if (gameId == "accessonespacecloudworkstationplatformbyoneplayforusersofoneplay") "oneplay" else selectedStore.lowercase(
-                    Locale.getDefault()
-                )
+                if (gameId == "accessonespacecloudworkstationplatformbyoneplayforusersofoneplay") "oneplay" else "steam"
             )
         }
 
+        val sdkContext = OneplayGameFactory.INSTANCE.sdkContext
 
         if (sdkContext != null) {
-            //session = OneplayGameFactory.createOnePlaySession(applicationContext, this)
+            session = OneplayGameFactory.INSTANCE.createOnePlaySession(applicationContext, this)
 
             val inputData = InputData(
                 partner,
@@ -102,29 +92,25 @@ class OneplayComposeActivity : AppCompatActivity(), OneplayGameSessionListener {
                 } else {
                     // Own Authentication
                     partnerUserAuthToken = sessionToken
-                    oPlayId = oplayId
+                    //oPlayId = oplayId
                 }
-                //mouseSensitivity = "NONE"
                 forceStart = true
 
             }
 
-            if (gameId == "list") {
-                val intent = Intent(this, GameList::class.java)
-                intent.putExtra("userId", userId)
-                intent.putExtra("partner", partner)
-                intent.putExtra("token", sessionToken)
-                intent.putExtra("oplayId", oplayId)
-                startActivity(intent)
-            } else {
-                session?.setInputData(inputData)
-            }
+            session?.setInputData(inputData)
             Toast.makeText(applicationContext, "Game session started successfully.", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(applicationContext, "DK context is null.", Toast.LENGTH_LONG).show()
         }
 
-
+        val intent = Intent(this, GameList::class.java)
+        intent.putExtra("gameId", gameId)
+        intent.putExtra("userId", userId)
+        intent.putExtra("partner", partner)
+        intent.putExtra("sessionToken", sessionToken)
+        intent.putExtra("oplayId", oplayId)
+        startActivity(intent)
     }
 
     override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
