@@ -299,6 +299,35 @@ Bitrate should be scaled according to the frame rate using the formula:
 
 ---
 
+### Pseudocode: Calculate Adjusted Bitrate
+
+```text
+Function: getIdleBitrate
+Inputs: resolution (string), fps (number, default 60)
+Output: adjusted_bitrate (number, kbps)
+
+1. Define a map of base bitrates for each resolution:
+   - "1280x720"   -> 10000
+   - "1366x768"   -> 10000
+   - "1440x900"   -> 15000
+   - "1920x1080"  -> 20000
+   - "1920x1200"  -> 20000
+   - "2560x1080"  -> 30000
+   - "2560x1440"  -> 40000
+   - "2560x1600"  -> 40000
+   - "3440x1440"  -> 40000
+   - "3840x2160"  -> 40000
+
+2. If the resolution is not in the map:
+      return 0
+
+3. Otherwise:
+      bitrate = base bitrate for the resolution
+      adjusted_bitrate = bitrate * (fps / 60)
+
+4. Return adjusted_bitrate
+```
+
 ### Additional Notes
 - These values are recommended for **idle or typical video playback**.  
 - Bitrate can be further adjusted based on network conditions, latency, and hardware capabilities.  
