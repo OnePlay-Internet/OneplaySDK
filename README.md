@@ -247,6 +247,63 @@ Here is the different streamSettings:
 {"enabled":true,"key":"nvidia_twopass_mode","show_in":"advance","text":"Mode","type":"select","values":[{"default":true,"display":"Quarter Resolution (Faster)","value":"quarter_resolution"},{"default":false,"display":"Disabled (Fastest)","value":"disabled"},{"default":false,"display":"Full Resolution (Fastest)","value":"full_resolution"}]},{"default":true,"enabled":true,"key":"nvidia_use_cabac","show_in":"advance","text":"Use CABAC","type":"toggle"}]
 
 ```
+# Video Bitrate Guidelines
+
+## Overview
+This guide provides recommended idle bitrates for different video resolutions and frame rates (FPS). Bitrate determines the amount of data transmitted per second and directly affects video quality. These guidelines help maintain smooth playback while optimizing network usage.
+
+---
+
+## Resolution and Base Bitrate
+The following table lists base bitrates for common resolutions:
+
+| Resolution | Base Bitrate (kbps) |
+|------------|--------|
+| 1280x720   | 10,000 |
+| 1366x768   | 10,000 |
+| 1440x900   | 15,000 |
+| 1920x1080  | 20,000 |
+| 1920x1200  | 20,000 |
+| 2560x1440  | 40,000 |
+| 2560x1600  | 40,000 |
+| 3840x2160  | 40,000 |
+
+---
+
+## Frame Rate Adjustment
+Bitrate should be scaled according to the frame rate using the formula:
+
+
+---
+
+## Recommended Bitrates for Common FPS
+| Resolution | 30 FPS | 60 FPS | 120 FPS | 240 FPS |
+|------------|--------|--------|---------|---------|
+| 1280x720   | 5,000  | 10,000 | 20,000  | 40,000  |
+| 1366x768   | 5,000  | 10,000 | 20,000  | 40,000  |
+| 1440x900   | 7,500  | 15,000 | 30,000  | 60,000  |
+| 1920x1080  | 10,000 | 20,000 | 40,000  | 80,000  |
+| 1920x1200  | 10,000 | 20,000 | 40,000  | 80,000  |
+| 2560x1440  | 20,000 | 40,000 | 80,000  | 160,000 |
+| 2560x1600  | 20,000 | 40,000 | 80,000  | 160,000 |
+| 3840x2160  | 20,000 | 40,000 | 80,000  | 160,000 |
+
+---
+
+## Usage Guidelines
+- Choose the **resolution** of your video.  
+- Select the **FPS** based on device capabilities or streaming requirements.  
+- Use the **adjusted bitrate** from the table above.  
+- Higher FPS or higher resolution increases required bitrate.  
+- For streaming over limited networks, consider reducing either resolution or FPS to lower bitrate.  
+
+---
+
+## Additional Notes
+- These values are recommended for **idle or typical video playback**.  
+- Bitrate can be further adjusted based on network conditions, latency, and hardware capabilities.  
+- Advanced users may tweak additional parameters such as **VSYNC, frame pacing, codec, and NVIDIA encoding presets** for optimal performance.
+
 
 ## 4. Manifest Configuration
 
