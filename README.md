@@ -354,7 +354,8 @@ Add required permissions to your AndroidManifest.xml:
 
 override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
     when {
-        onePlayResponseData.code == 404 -> handleError(onePlayResponse.message) //Connection error
+        onePlayResponseData.code in 400..499 -> handleError(onePlayResponseData.code,onePlayResponseData.message) //Connection error
+        onePlayResponseData.code in 500..599 -> handleError(onePlayResponseData.code,onePlayResponseData.message) //Connection error
         onePlayResponseData.code == 1000 && oneplayResponseData.isProgressed == true -> 
         handleProgress(oneplayResponseData.percentage)
         onePlayResponseData.code == 1001 -> handleGameConnected()
