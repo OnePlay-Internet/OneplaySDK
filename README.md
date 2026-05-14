@@ -364,6 +364,18 @@ override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
     }
 }
 
+## 5.1 Other error code
+```kotlin
+677 ONESPACE_NOT_FOR_YOU
+679 ONESPACE_RESET_INPROGRESS
+398 ONESPACE_SUBSCRIPTION_NOT_FOR_ZONE
+610 GAME_WARN_4HR_LIMIT
+691 GAME_WARN_HIGHER_RES_SELECTED, GAME_WARN_INVALID_RESOLUTION
+688 MINIMUM_10MINS_SUBSCRIPTION
+610 GAME_WARN_4HR_LIMIT
+648 NO_SUBSCRIPTION_ACTIVE
+```
+
 private fun handleError(error: String) {
     Toast.makeText(this, "Game Error: $error", Toast.LENGTH_SHORT).show()
 }
