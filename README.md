@@ -364,6 +364,11 @@ override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
     }
 }
 
+private fun handleError(error: String) {
+    Toast.makeText(this, "Game Error: $error", Toast.LENGTH_SHORT).show()
+}
+```
+
 ## 5.1 Other error code
 ```kotlin
 677 ONESPACE_NOT_FOR_YOU
@@ -374,11 +379,6 @@ override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
 688 MINIMUM_10MINS_SUBSCRIPTION
 610 GAME_WARN_4HR_LIMIT
 648 NO_SUBSCRIPTION_ACTIVE
-```
-
-private fun handleError(error: String) {
-    Toast.makeText(this, "Game Error: $error", Toast.LENGTH_SHORT).show()
-}
 ```
 
 ## 6. Shortcuts for stream
