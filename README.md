@@ -132,6 +132,19 @@ class GameActivity : AppCompatActivity(), OneplayGameSessionListener {
             onePlayResponseData.code == 1003 -> handleGameTerminated()
             onePlayResponseData.code == 1004 -> handleNetworkWarning(onePlayResponseData.message) // Network warning / metered / disconnected
             onePlayResponseData.code == 1005 -> handleSessionTimerAlert(onePlayResponseData.timeRemaining, onePlayResponseData.message) // Expiry timer alert
+            onePlayResponseData.code == 1006 -> handleOpenUrl(onePlayResponseData.url ?: onePlayResponseData.message) // Host-requested URL (e.g. login, purchase)
+        }
+    }
+
+    private fun handleOpenUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addCategory(Intent.CATEGORY_BROWSABLE)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        try {
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Unable to open link: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -241,6 +254,7 @@ private fun setupGameLaunch() {
         // Toolbar Overlay & Gesture Configurations
         isSettingIconStaticVisible = true      // Default: true (keeps toolbar buttons statically visible)
         isGestureBasedOverlayEnabled = false   // Default: false (set true to auto-hide toolbar after 5s and use top-left swipe to show)
+        isSideDrawArrowEnabled = false         // Default: false (set true to enable sleek side drawer pull-tab arrow on the screen edge)
 
         // Keyboard Configurations
         enableOnscreenKeyboard = true          // Default: true (opens built-in custom on-screen gaming keyboard)
@@ -249,6 +263,35 @@ private fun setupGameLaunch() {
 
     gameSession.setInputData(inputData)
 }
+```
+
+### Toolbar Overlay Modes
+
+The in-stream settings toolbar (Settings, Keyboard, Mute, Quit) can be displayed in three modes via `InputData`:
+
+1. **Static Always-Visible (Default)**:
+   ```kotlin
+   isSettingIconStaticVisible = true
+   isGestureBasedOverlayEnabled = false
+   isSideDrawArrowEnabled = false
+   ```
+   Toolbar buttons remain statically visible at the top-left of the screen.
+
+2. **Side Drawer Pull-Tab Arrow (Recommended for Mobile Touch Gameplay)**:
+   ```kotlin
+   isSideDrawArrowEnabled = true
+   ```
+   Shows a sleek, semi-transparent arrow handle tab on the left edge of the screen:
+   - Tapping the arrow slides the settings options toolbar into view smoothly and flips the arrow.
+   - Automatically collapses after 5 seconds of inactivity, or when tapping outside / tapping the arrow tab again.
+   - Ideal for mobile full-screen touch gaming to keep the display completely unobstructed.
+
+3. **Gesture-Based Swipe Overlay**:
+   ```kotlin
+   isGestureBasedOverlayEnabled = true
+   isSettingIconStaticVisible = false
+   ```
+   Toolbar auto-hides after 5 seconds; swiping left-to-right across the top-left corner restores the toolbar.
 ```
 
 Here is the termination method:
@@ -339,11 +382,11 @@ $$\text{Adjusted Bitrate} = \text{Base Bitrate} \times \left(\frac{\text{FPS}}{6
 ---
 
 ### Usage Guidelines
-- Choose the **resolution** of your video.
-- Select the **FPS** based on device capabilities or streaming requirements.
-- Use the **adjusted bitrate** from the table above.
-- Higher FPS or higher resolution increases required bitrate.
-- For streaming over limited networks, consider reducing either resolution or FPS to lower bitrate.
+- Choose the **resolution** of your video.  
+- Select the **FPS** based on device capabilities or streaming requirements.  
+- Use the **adjusted bitrate** from the table above.  
+- Higher FPS or higher resolution increases required bitrate.  
+- For streaming over limited networks, consider reducing either resolution or FPS to lower bitrate.  
 
 ---
 
@@ -377,8 +420,8 @@ Output: adjusted_bitrate (number, kbps)
 ```
 
 ### Additional Notes
-- These values are recommended for **idle or typical video playback**.
-- Bitrate can be further adjusted based on network conditions, latency, and hardware capabilities.
+- These values are recommended for **idle or typical video playback**.  
+- Bitrate can be further adjusted based on network conditions, latency, and hardware capabilities.  
 - Advanced users may tweak additional parameters such as **VSYNC, frame pacing, codec, and NVIDIA encoding presets** for optimal performance.
 
 ---
@@ -406,7 +449,8 @@ Add required permissions to your `AndroidManifest.xml`:
     val message: String, 
     val isProgressed: Boolean, 
     val percentage: Int,
-    val timeRemaining: Long? = null
+    val timeRemaining: Long? = null,
+    val url: String? = null
 ) */ // Reference OnePlayResponseData
 
 override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
@@ -421,6 +465,7 @@ override fun sendEvent(onePlayResponseData: OnePlayResponseData) {
         onePlayResponseData.code == 1003 -> handleGameTerminated()
         onePlayResponseData.code == 1004 -> handleNetworkWarning(onePlayResponseData.message)
         onePlayResponseData.code == 1005 -> handleSessionTimeAlert(onePlayResponseData.timeRemaining, onePlayResponseData.message)
+        onePlayResponseData.code == 1006 -> handleOpenUrl(onePlayResponseData.url ?: onePlayResponseData.message) // Host-requested URL
     }
 }
 
